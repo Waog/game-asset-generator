@@ -10,8 +10,8 @@ angular.module('myApp', [
   'myApp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/home', {templateUrl: 'partials/home.html', controller: 'nullCtrl'});
+  $routeProvider.when('/helpUs', {templateUrl: 'partials/helpUs.html', controller: 'nullCtrl'});
   $routeProvider.when('/impressum', {templateUrl: 'partials/impressum.html', controller: 'nullCtrl'});
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);
