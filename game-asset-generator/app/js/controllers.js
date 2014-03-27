@@ -100,7 +100,7 @@ angular.module('myApp.controllers', [])
 			 * PIXI.Sprite(texture);
 			 */
 
-			alien.position.x = Math.random() * 800 - 400;
+			alien.position.x = Math.random() * 800 - 401;
 			alien.position.y = Math.random() * 600 - 300;
 			alien.anchor.x = 0.5;
 			alien.anchor.y = 0.5;
