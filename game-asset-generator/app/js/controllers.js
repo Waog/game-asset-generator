@@ -2,19 +2,27 @@
 
 /* Controllers */
 
+var trackGoogleAnalytics = function() {
+//	ga('send', 'pageview');
+//	alert('tracked something...');
+}
+
 angular.module('myApp.controllers', [])
 
 .controller('nullCtrl', [ function() {
+	trackGoogleAnalytics();
 } ])
 
-.controller('navigationCtrl', [ '$scope', '$location', function($scope, $location) {
-	$scope.getCssNaviClass = function(page) {
-		var currentRoute = $location.path().substring(1) || 'home';
-		return page === currentRoute ? 'active' : '';
-	};
-} ])
+.controller('navigationCtrl',
+		[ '$scope', '$location', function($scope, $location) {
+			$scope.getCssNaviClass = function(page) {
+				var currentRoute = $location.path().substring(1) || 'home';
+				return page === currentRoute ? 'active' : '';
+			};
+		} ])
 
 .controller('pixi01Ctrl', [ function() {
+	trackGoogleAnalytics();
 	// create an new instance of a pixi stage
 	var stage = new PIXI.Stage(0x66FF99);
 
@@ -55,7 +63,7 @@ angular.module('myApp.controllers', [])
 } ])
 
 .controller('pixi02Ctrl', [ function() {
-
+	trackGoogleAnalytics();
 	// create an array of assets to load
 	var assetsToLoader = [ "img/pixiExperiments/ownSpriteSheet.json" ];
 
