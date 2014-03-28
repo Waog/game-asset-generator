@@ -4,7 +4,7 @@
 angular.module(
 		'myApp',
 		[ 'ngRoute', 'myApp.filters', 'myApp.services', 'myApp.directives',
-				'myApp.controllers' ]).config(
+				'myApp.controllers', "firebase" ]).config(
 		[ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/home', {
 				templateUrl : 'partials/home.html',
@@ -52,6 +52,10 @@ angular.module(
 			$routeProvider.when('/pixiExample02', {
 				templateUrl : 'partials/pixiExperiments.html',
 				controller : 'pixi02Ctrl'
+			});
+			$routeProvider.when('/firebaseExperiments', {
+				templateUrl : 'partials/firebaseExperiments.html',
+				controller : 'firebaseExperimentsCtrl'
 			});
 			$routeProvider.otherwise({
 				redirectTo : '/home'

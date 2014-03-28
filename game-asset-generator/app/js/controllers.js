@@ -3,15 +3,36 @@
 /* Controllers */
 
 var trackGoogleAnalytics = function() {
-//	ga('send', 'pageview');
-//	alert('tracked something...');
+	// ga('send', 'pageview');
+	// alert('tracked something...');
 }
 
 angular.module('myApp.controllers', [])
 
 .controller('nullCtrl', [ function() {
 	trackGoogleAnalytics();
-} ])
+} ]).controller(
+		'firebaseExperimentsCtrl',
+		[
+				'$scope',
+				'$firebase',
+				function($scope, $firebase) {
+					trackGoogleAnalytics();
+
+					var ref = new Firebase(
+							"https://game-asset-generator.firebaseio.com/");
+					$scope.messages = $firebase(ref);
+
+					$scope.addMessage = function(e) {
+						if (e.keyCode != 13)
+							return;
+						$scope.messages.$add({
+							name : $scope.newVarName,
+							value : $scope.newVarValue
+						});
+						$scope.msg = "";
+					};
+				} ])
 
 .controller('navigationCtrl',
 		[ '$scope', '$location', function($scope, $location) {
