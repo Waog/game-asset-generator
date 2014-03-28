@@ -7,6 +7,13 @@ angular.module('myApp.controllers', [])
 .controller('nullCtrl', [ function() {
 } ])
 
+.controller('navigationCtrl', [ '$scope', '$location', function($scope, $location) {
+	$scope.getCssNaviClass = function(page) {
+		var currentRoute = $location.path().substring(1) || 'home';
+		return page === currentRoute ? 'active' : '';
+	};
+} ])
+
 .controller('pixi01Ctrl', [ function() {
 	// create an new instance of a pixi stage
 	var stage = new PIXI.Stage(0x66FF99);
@@ -106,7 +113,7 @@ angular.module('myApp.controllers', [])
 			alien.anchor.y = 0.5;
 			aliens.push(alien);
 			alienContainer.addChild(alien);
-			
+
 			// TODO: remove git test
 		}
 

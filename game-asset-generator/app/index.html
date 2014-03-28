@@ -28,7 +28,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body ng-controller="navigationCtrl">
 	<!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -48,8 +48,8 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#/home">Home</a></li>
-					<li><a href="#/helpUs">Help us</a></li>
+					<li ng-class="getCssNaviClass('home')"><a href="#/home">Home</a></li>
+					<li ng-class="getCssNaviClass('helpUs')"><a href="#/helpUs">Help us</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
