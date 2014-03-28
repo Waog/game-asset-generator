@@ -58,9 +58,11 @@
 
 	<div ng-view></div>
 
-	<footer>
-		<a href="#/impressum">Impressum</a>
-		<a href="#/pixiExperiments">pixi Experiments</a>
+	<footer class="container text-center">
+		<a href="#/impressum">Impressum</a> &bull; <a href="#/pixiExperiments">pixi
+			Experiments</a> &bull; Showing of 'interpolate' filter: {{ 'Current
+		version is v%VERSION%.' | interpolate }} &bull; Asset Generator v<span
+			app-version></span>
 	</footer>
 
 	<!-- In production use:
