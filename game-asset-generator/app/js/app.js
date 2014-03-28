@@ -14,6 +14,30 @@ angular.module(
 				templateUrl : 'partials/helpUs.html',
 				controller : 'nullCtrl'
 			});
+			$routeProvider.when('/animations', {
+				templateUrl : 'partials/animations.html',
+				controller : 'nullCtrl'
+			});
+			$routeProvider.when('/backgrounds', {
+				templateUrl : 'partials/backgrounds.html',
+				controller : 'nullCtrl'
+			});
+			$routeProvider.when('/graphics', {
+				templateUrl : 'partials/graphics.html',
+				controller : 'nullCtrl'
+			});
+			$routeProvider.when('/music', {
+				templateUrl : 'partials/music.html',
+				controller : 'nullCtrl'
+			});
+			$routeProvider.when('/particles', {
+				templateUrl : 'partials/particles.html',
+				controller : 'nullCtrl'
+			});
+			$routeProvider.when('/sounds', {
+				templateUrl : 'partials/sounds.html',
+				controller : 'nullCtrl'
+			});
 			$routeProvider.when('/impressum', {
 				templateUrl : 'partials/impressum.html',
 				controller : 'nullCtrl'
