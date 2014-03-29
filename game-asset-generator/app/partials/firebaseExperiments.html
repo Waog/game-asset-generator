@@ -8,17 +8,19 @@
 				class="btn btn-default"
 				href="https://game-asset-generator.firebaseio.com/" target="_blank">firebase</a>
 		</p>
-		<div id="messagesDiv">
-			<p>Database content: {{messages}}</p>
-			<p>As list:
-			<ul>
-				<li ng-repeat="curEntry in messages">{{curEntry}}</li>
-			</ul>
-			</p>
-		</div>
-		<input type="text" ng-model="newVarName"
-			placeholder="New Variable Name"> <input type="text"
-			ng-model="newVarValue" ng-keydown="addMessage($event)"
-			placeholder="New Variable Value">
 	</div>
+</div>
+<div class="container">
+	<div id="messagesDiv">
+		<p>Database content: {{messages}}</p>
+		<p>As list:
+		<ul>
+			<li ng-repeat="curEntry in messages">{{curEntry}}</li>
+		</ul>
+		</p>
+	</div>
+	<input type="text" ng-model="newVarName"
+		placeholder="New Variable Name"> <input type="text"
+		ng-model="newVarValue" ng-keydown="addMessage($event)"
+		placeholder="New Variable Value">
 </div>
