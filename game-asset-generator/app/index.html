@@ -64,8 +64,8 @@
 							us</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><p class="navbar-text">Login:</p></li>
-					<li ng-class="getCssNaviClass('home')"><a href="#/home">Facebook</a></li>
+					<li><p class="navbar-text">{{naviLoginText}}</p></li>
+					<li ng-class="getCssLoginClass('facebook')"><a ng-click="login('facebook')" href="#">Facebook</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav">
