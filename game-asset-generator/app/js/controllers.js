@@ -1,221 +1,215 @@
 'use strict';
 
-/* Controllers */
-
-var trackGoogleAnalytics = function() {
+function trackGoogleAnalytics() {
 	// ga('send', 'pageview');
 	// alert('tracked something...');
-}
+};
 
-angular
-		.module('myApp.controllers', [])
+function nullCtrl(gAnalyticsTrack) {
+	trackGoogleAnalytics();
+};
 
-		.controller('nullCtrl', [ function() {
-			trackGoogleAnalytics();
-		} ])
-		.controller(
-				'firebaseExperimentsCtrl',
-				[
-						'$scope',
-						'$firebase',
-						function($scope, $firebase) {
-							trackGoogleAnalytics();
+function firebaseExperimentsCtrl($scope, $firebase) {
+	trackGoogleAnalytics();
 
-							var ref = new Firebase(
-									"https://game-asset-generator.firebaseio.com/");
-							$scope.messages = $firebase(ref);
+	var ref = new Firebase("https://game-asset-generator.firebaseio.com/");
+	$scope.messages = $firebase(ref);
 
-							$scope.addMessage = function(e) {
-								if (e.keyCode != 13)
-									return;
-								$scope.messages.$add({
-									name : $scope.newVarName,
-									value : $scope.newVarValue
-								});
-								$scope.msg = "";
-							};
+	$scope.addMessage = function(e) {
+		if (e.keyCode != 13)
+			return;
+		$scope.messages.$add({
+		    name : $scope.newVarName,
+		    value : $scope.newVarValue
+		});
+		$scope.msg = "";
+	};
 
-							var auth = new FirebaseSimpleLogin(
-									ref,
-									function(error, user) {
-										if (error) {
-											// an error occurred while
-											// attempting login
-											console.log(error);
-										} else if (user) {
-											// user authenticated with Firebase
-											console.log('User ID: ' + user.id
-													+ ', Provider: '
-													+ user.provider);
-											$scope.$parent.userAuth = user;
-											$scope.$parent.naviLoginText = 'Welcome '
-													+ user.displayName
-													+ ' logged in with: ';
-										} else {
-											// user is logged out
-										}
-									});
+	var auth = new FirebaseSimpleLogin(ref,
+	        function(error, user) {
+		        if (error) {
+			        // an error occurred while
+			        // attempting login
+			        console.log(error);
+		        } else if (user) {
+			        // user authenticated with Firebase
+			        console.log('User ID: ' + user.id + ', Provider: '
+			                + user.provider);
+			        $scope.$parent.userAuth = user;
+			        $scope.$parent.naviLoginText = 'Welcome '
+			                + user.displayName + ' logged in with: ';
+		        } else {
+			        // user is logged out
+		        }
+	        });
 
-							auth.login('facebook');
-						} ])
+	auth.login('facebook');
+};
 
-		.controller(
-				'navigationCtrl',
-				[
-						'$scope',
-						'$location',
-						function($scope, $location) {
-							$scope.getCssNaviClass = function(page) {
-								var currentRoute = $location.path()
-										.substring(1)
-										|| 'home';
-								return page === currentRoute ? 'active' : '';
-							};
+function navigationCtrl($scope, $location) {
+	$scope.getCssNaviClass = function(page) {
+		var currentRoute = $location.path().substring(1) || 'home';
+		return page === currentRoute ? 'active' : '';
+	};
 
-							$scope.userAuth = {};
-							$scope.naviLoginText = 'Login: ';
+	$scope.userAuth = {};
+	$scope.naviLoginText = 'Login: ';
 
-							$scope.getCssLoginClass = function(provider) {
-								console.log($scope.userAuth);
-								if ($scope.userAuth) {
-									console.log($scope.userAuth);
-									return provider === $scope.userAuth.provider ? 'active'
-											: '';
-								} else {
-									return '';
-								}
-							};
-							
-							$scope.login = function(provider) {
-								console.log('TODO: login with: ' + provider);
-							};
-						} ])
+	$scope.getCssLoginClass = function(provider) {
+		console.log($scope.userAuth);
+		if ($scope.userAuth) {
+			console.log($scope.userAuth);
+			return provider === $scope.userAuth.provider ? 'active' : '';
+		} else {
+			return '';
+		}
+	};
 
-		.controller('pixi01Ctrl', [ function() {
-			trackGoogleAnalytics();
-			// create an new instance of a pixi stage
-			var stage = new PIXI.Stage(0x66FF99);
+	$scope.login = function(provider) {
+		console.log('TODO: login with: ' + provider);
+	};
+};
 
-			// create a renderer instance
-			// var renderer = new PIXI.WebGLRenderer(400, 300);
-			var renderer = new PIXI.autoDetectRenderer(400, 300);
+function pixi02Ctrl() {
+	trackGoogleAnalytics();
+	// create an array of assets to load
+	var assetsToLoader = [ "img/pixiExperiments/ownSpriteSheet.json" ];
 
-			// add the renderer view element to the DOM
-			document.getElementById('pixiCanvas').appendChild(renderer.view);
+	// create a new loader
+	var loader = new PIXI.AssetLoader(assetsToLoader);
 
-			requestAnimFrame(animate);
+	// use callback
+	loader.onComplete = onAssetsLoaded
 
-			// create a texture from an image path
-			var texture = PIXI.Texture.fromImage("img/gears.png");
-			// create a new Sprite using the texture
-			var bunny = new PIXI.Sprite(texture);
+	// begin load
+	loader.load();
 
-			// center the sprites anchor point
-			bunny.anchor.x = 0.5;
-			bunny.anchor.y = 0.5;
+	// holder to store aliens
+	var aliens = [];
+	var alienFrames = [ "flag1.png", "Passage.png" ];
 
-			// move the sprite t the center of the screen
-			bunny.position.x = 200;
-			bunny.position.y = 150;
+	var count = 0;
 
-			stage.addChild(bunny);
+	// create an new instance of a pixi stage
+	var stage = new PIXI.Stage(0xABCDEF);
+	;
 
-			function animate() {
+	// create a renderer instance.
+	var renderer = PIXI.autoDetectRenderer(800, 600);
 
-				requestAnimFrame(animate);
+	// add the renderer view element to the DOM
+	document.getElementById('pixiCanvas').appendChild(renderer.view);
 
-				// just for fun, lets rotate mr rabbit a little
-				bunny.rotation += 0.1;
+	// create an empty container
+	var alienContainer = new PIXI.DisplayObjectContainer();
+	alienContainer.position.x = 400;
+	alienContainer.position.y = 300;
 
-				// render the stage
-				renderer.render(stage);
-			}
-		} ])
+	stage.addChild(alienContainer);
 
-		.controller('pixi02Ctrl', [ function() {
-			trackGoogleAnalytics();
-			// create an array of assets to load
-			var assetsToLoader = [ "img/pixiExperiments/ownSpriteSheet.json" ];
+	function onAssetsLoaded() {
 
-			// create a new loader
-			var loader = new PIXI.AssetLoader(assetsToLoader);
+		// create a texture from an image path
+		// add a bunch of aliens
+		for (var i = 0; i < 10; i++) {
+			var frameName = alienFrames[i % 2];
 
-			// use callback
-			loader.onComplete = onAssetsLoaded
+			// create an alien using the frame name..
+			var alien = PIXI.Sprite.fromFrame(frameName);
 
-			// begin load
-			loader.load();
+			/*
+			 * fun fact for the day :) another way of doing the above would be
+			 * var texture = PIXI.Texture.fromFrame(frameName); var alien = new
+			 * PIXI.Sprite(texture);
+			 */
 
-			// holder to store aliens
-			var aliens = [];
-			var alienFrames = [ "flag1.png", "Passage.png" ];
+			alien.position.x = Math.random() * 800 - 400;
+			alien.position.y = Math.random() * 600 - 300;
+			alien.anchor.x = 0.5;
+			alien.anchor.y = 0.5;
+			aliens.push(alien);
+			alienContainer.addChild(alien);
 
-			var count = 0;
+			// TODO: remove git test
+		}
 
-			// create an new instance of a pixi stage
-			var stage = new PIXI.Stage(0xABCDEF);
-			;
+		// start animating
+		requestAnimFrame(animate);
 
-			// create a renderer instance.
-			var renderer = PIXI.autoDetectRenderer(800, 600);
+	}
 
-			// add the renderer view element to the DOM
-			document.getElementById('pixiCanvas').appendChild(renderer.view);
+	function animate() {
 
-			// create an empty container
-			var alienContainer = new PIXI.DisplayObjectContainer();
-			alienContainer.position.x = 400;
-			alienContainer.position.y = 300;
+		requestAnimFrame(animate);
 
-			stage.addChild(alienContainer);
+		// just for fun, lets rotate mr rabbit a little
+		for (var i = 0; i < 10; i++) {
+			var alien = aliens[i];
+			alien.rotation += 0.1;
+		}
 
-			function onAssetsLoaded() {
+		count += 0.01;
+		alienContainer.scale.x = Math.sin(count);
+		alienContainer.scale.y = Math.sin(count);
 
-				// create a texture from an image path
-				// add a bunch of aliens
-				for (var i = 0; i < 10; i++) {
-					var frameName = alienFrames[i % 2];
+		alienContainer.rotation += 0.01;
+		// render the stage
+		renderer.render(stage);
+	}
+};
 
-					// create an alien using the frame name..
-					var alien = PIXI.Sprite.fromFrame(frameName);
+function pixi01Ctrl() {
+	trackGoogleAnalytics();
+	// create an new instance of a pixi stage
+	var stage = new PIXI.Stage(0x66FF99);
 
-					/*
-					 * fun fact for the day :) another way of doing the above
-					 * would be var texture = PIXI.Texture.fromFrame(frameName);
-					 * var alien = new PIXI.Sprite(texture);
-					 */
+	// create a renderer instance
+	// var renderer = new PIXI.WebGLRenderer(400, 300);
+	var renderer = new PIXI.autoDetectRenderer(400, 300);
 
-					alien.position.x = Math.random() * 800 - 400;
-					alien.position.y = Math.random() * 600 - 300;
-					alien.anchor.x = 0.5;
-					alien.anchor.y = 0.5;
-					aliens.push(alien);
-					alienContainer.addChild(alien);
+	// add the renderer view element to the DOM
+	document.getElementById('pixiCanvas').appendChild(renderer.view);
 
-					// TODO: remove git test
-				}
+	requestAnimFrame(animate);
 
-				// start animating
-				requestAnimFrame(animate);
+	// create a texture from an image path
+	var texture = PIXI.Texture.fromImage("img/gears.png");
+	// create a new Sprite using the texture
+	var bunny = new PIXI.Sprite(texture);
 
-			}
+	// center the sprites anchor point
+	bunny.anchor.x = 0.5;
+	bunny.anchor.y = 0.5;
 
-			function animate() {
+	// move the sprite t the center of the screen
+	bunny.position.x = 200;
+	bunny.position.y = 150;
 
-				requestAnimFrame(animate);
+	stage.addChild(bunny);
 
-				// just for fun, lets rotate mr rabbit a little
-				for (var i = 0; i < 10; i++) {
-					var alien = aliens[i];
-					alien.rotation += 0.1;
-				}
+	function animate() {
 
-				count += 0.01;
-				alienContainer.scale.x = Math.sin(count);
-				alienContainer.scale.y = Math.sin(count);
+		requestAnimFrame(animate);
 
-				alienContainer.rotation += 0.01;
-				// render the stage
-				renderer.render(stage);
-			}
-		} ])
+		// just for fun, lets rotate mr rabbit a little
+		bunny.rotation += 0.1;
+
+		// render the stage
+		renderer.render(stage);
+	}
+};
+
+var controllerDefinitions = angular.module('myApp.controllers', [])
+
+.factory('gAnalyticsTrack', [ trackGoogleAnalytics ])
+
+.controller('nullCtrl', [ 'gAnalyticsTrack', nullCtrl ])
+
+.controller('firebaseExperimentsCtrl',
+        [ '$scope', '$firebase', firebaseExperimentsCtrl ])
+
+.controller('navigationCtrl', [ '$scope', '$location', navigationCtrl ])
+
+.controller('pixi01Ctrl', [ pixi01Ctrl ])
+
+.controller('pixi02Ctrl', [ pixi02Ctrl ])
