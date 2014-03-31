@@ -1,10 +1,22 @@
 #!/usr/bin/env node
 
+// "import block"
 var util = require('util'),
     http = require('http'),
     fs = require('fs'),
     url = require('url'),
-    events = require('events');
+    events = require('events'),
+    express = require('express');
+
+var app = express();
+
+app.get('/app/index.html', function(req, res) {
+	res.send('Hello Express World');
+});
+
+var server = app.listen(45537, function serverStarted() {
+	console.log('express server started. Listening at port ' + server.address().port);
+});
 
 var DEFAULT_PORT = 8000;
 
@@ -28,10 +40,11 @@ function createServlet(Class) {
 }
 
 /**
- * An Http server implementation that uses a map of methods to decide
- * action routing.
- *
- * @param {Object} Map of method => Handler function
+ * An Http server implementation that uses a map of methods to decide action
+ * routing.
+ * 
+ * @param {Object}
+ *            Map of method => Handler function
  */
 function HttpServer(handlers) {
   this.handlers = handlers;
