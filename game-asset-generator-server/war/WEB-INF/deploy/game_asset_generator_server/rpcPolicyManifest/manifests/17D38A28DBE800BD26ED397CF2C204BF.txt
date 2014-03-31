@@ -1,0 +1,2 @@
+serviceClass: com.assetgenerator.client.GreetingService
+path: C46DCC0FFC2977846D8E53A74393FC56.gwt.rpc
