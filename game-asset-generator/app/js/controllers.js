@@ -2,68 +2,118 @@
 
 var controllerDefinitions = angular.module('myApp.controllers', []);
 
-controllerDefinitions.factory('gAnalyticsTrack',
-        [ function gAnalyticsTrack() {
+controllerDefinitions.factory('gAnalyticsTrackService',
+        [ function gAnalyticsTrackService() {
 	        return function() {
 		        // ga('send', 'pageview');
 		        console.log('tracked something...');
-	        }
+	        };
         } ]);
 
-controllerDefinitions.controller('nullCtrl', [
-        'gAnalyticsTrack', function nullCtrl(gAnalyticsTrack) {
-	        gAnalyticsTrack();
+controllerDefinitions.factory('authService', [
+        '$firebase',
+
+        function authServiceFactory($firebase) {
+	        var ref = new Firebase(
+	                "https://game-asset-generator.firebaseio.com/");
+
+	        var anAuthServiceInstance = {
+	            loginWith : function(provider) {
+		            console.log('logging in with: ' + provider);
+		            // use the defined object to authenticate via facebook
+		            auth.login(provider);
+	            },
+
+	            isLoggedIn : function() {
+		            return this.user !== null;
+	            },
+
+	            getProvider : function() {
+		            return this.user.provider;
+	            },
+
+	            getUserDisplayName : function() {
+		            return this.user.displayName;
+	            },
+
+	            user : null
+	        };
+
+	        // define an object to handle authentication at firebase
+	        var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+		        if (error) {
+			        // an error occurred while
+			        // attempting login
+			        console.log(error);
+		        } else if (user) {
+			        // user authenticated with Firebase
+			        console.log('User ID: ' + user.id + ', Provider: '
+			                + user.provider);
+			        anAuthServiceInstance.user = user;
+			        // $scope.$parent.naviLoginText = 'Welcome '
+			        // + user.displayName + ' logged in with: ';
+		        } else {
+			        // user is logged out
+		        }
+	        });
+
+	        return anAuthServiceInstance;
         } ]);
 
-controllerDefinitions.controller(
-        'firebaseExperimentsCtrl', [
-                '$scope',
-                '$firebase',
-                'gAnalyticsTrack',
-                function firebaseExperimentsCtrl($scope, $firebase, gAnalyticsTrack) {
-	                gAnalyticsTrack();
+controllerDefinitions.controller('nullCtrl', [ 'gAnalyticsTrackService',
+        function nullCtrl(gAnalyticsTrackService) {
+	        gAnalyticsTrackService();
+        } ]);
 
-	                var ref = new Firebase(
-	                        "https://game-asset-generator.firebaseio.com/");
-	                $scope.messages = $firebase(ref);
+controllerDefinitions.controller('firebaseExperimentsCtrl', [
+        '$scope',
+        '$firebase',
+        'gAnalyticsTrackService',
+        function firebaseExperimentsCtrl($scope, $firebase,
+                gAnalyticsTrackService) {
+	        gAnalyticsTrackService();
 
-	                $scope.addMessage = function(e) {
-		                if (e.keyCode != 13)
-			                return;
-		                $scope.messages.$add({
-		                    name : $scope.newVarName,
-		                    value : $scope.newVarValue
-		                });
-		                $scope.msg = "";
-	                };
+	        var ref = new Firebase(
+	                "https://game-asset-generator.firebaseio.com/");
+	        $scope.messages = $firebase(ref);
 
-	                // define an object to handle authentication at firebase
-	                var auth = new FirebaseSimpleLogin(ref, function(error,
-	                        user) {
-		                if (error) {
-			                // an error occurred while
-			                // attempting login
-			                console.log(error);
-		                } else if (user) {
-			                // user authenticated with Firebase
-			                console.log('User ID: ' + user.id + ', Provider: '
-			                        + user.provider);
-			                $scope.$parent.userAuth = user;
-			                $scope.$parent.naviLoginText = 'Welcome '
-			                        + user.displayName + ' logged in with: ';
-		                } else {
-			                // user is logged out
-		                }
-	                });
+	        $scope.addMessage = function(e) {
+		        if (e.keyCode != 13)
+			        return;
+		        $scope.messages.$add({
+		            name : $scope.newVarName,
+		            value : $scope.newVarValue
+		        });
+		        $scope.msg = "";
+	        };
 
-	                // use the defined object to authenticate via facebook
-	                auth.login('facebook');
-                } ]);
+	        // define an object to handle authentication at firebase
+	        var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+		        if (error) {
+			        // an error occurred while
+			        // attempting login
+			        console.log(error);
+		        } else if (user) {
+			        // user authenticated with Firebase
+			        console.log('User ID: ' + user.id + ', Provider: '
+			                + user.provider);
+			        $scope.$parent.userAuth = user;
+			        $scope.$parent.naviLoginText = 'Welcome '
+			                + user.displayName + ' logged in with: ';
+		        } else {
+			        // user is logged out
+		        }
+	        });
+
+	        // use the defined object to authenticate via facebook
+	        auth.login('facebook');
+        } ]);
 
 controllerDefinitions.controller('navigationCtrl', [
         '$scope',
         '$location',
-        function navigationCtrl($scope, $location) {
+        'authService',
+        function navigationCtrl($scope, $location, authService) {
 
 	        /**
 			 * returns the 'active' css class if the given page matches the
@@ -83,8 +133,9 @@ controllerDefinitions.controller('navigationCtrl', [
 			 * authentication.
 			 */
 	        $scope.getCssLoginClass = function(provider) {
-		        if ($scope.userAuth) {
-			        return provider === $scope.userAuth.provider ? 'active'
+		        if (authService.isLoggedIn()) {
+			        var curProvider = authService.getProvider();
+			        return provider === authService.getProvider() ? 'active'
 			                : '';
 		        } else {
 			        return '';
@@ -92,13 +143,19 @@ controllerDefinitions.controller('navigationCtrl', [
 	        };
 
 	        $scope.login = function(provider) {
-		        console.log('TODO: login with: ' + provider);
+		        authService.loginWith(provider);
+
+		        if (authService.isLoggedIn()) {
+			        $scope.naviLoginText = 'Welcome '
+			                + authService.getUserDisplayName()
+			                + '. Logged in with: ';
+		        }
 	        };
         } ]);
 
-controllerDefinitions.controller('pixi01Ctrl', [
-        'gAnalyticsTrack', function pixi01Ctrl(gAnalyticsTrack) {
-	        gAnalyticsTrack();
+controllerDefinitions.controller('pixi01Ctrl', [ 'gAnalyticsTrackService',
+        function pixi01Ctrl(gAnalyticsTrackService) {
+	        gAnalyticsTrackService();
 
 	        // create an new instance of a pixi stage
 	        var stage = new PIXI.Stage(0x66FF99);
@@ -139,9 +196,9 @@ controllerDefinitions.controller('pixi01Ctrl', [
 	        }
         } ]);
 
-controllerDefinitions.controller('pixi02Ctrl', [
-        'gAnalyticsTrack', function pixi02Ctrl(gAnalyticsTrack) {
-	        gAnalyticsTrack();
+controllerDefinitions.controller('pixi02Ctrl', [ 'gAnalyticsTrackService',
+        function pixi02Ctrl(gAnalyticsTrackService) {
+	        gAnalyticsTrackService();
 	        // create an array of assets to load
 	        var assetsToLoader = [ "img/pixiExperiments/ownSpriteSheet.json" ];
 
