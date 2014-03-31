@@ -90,6 +90,12 @@ controllerDefinitions.controller('firebaseExperimentsCtrl', [
 	        };
         } ]);
 
+controllerDefinitions.controller('gDriveExperimentsCtrl', [
+        'gAnalyticsTrackService', function gDriveExperimentsCtrl(gAnalyticsTrackService) {
+	        gAnalyticsTrackService();
+	        console.log('gDriveExperimentsCtrl entered');
+        } ]);
+
 controllerDefinitions.controller('navigationCtrl', [
         '$scope',
         '$location',

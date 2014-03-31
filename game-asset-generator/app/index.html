@@ -65,7 +65,8 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><p class="navbar-text">{{naviLoginText}}</p></li>
-					<li ng-class="getCssLoginClass('facebook')"><a ng-click="login('facebook')" href="#">Facebook</a></li>
+					<li ng-class="getCssLoginClass('facebook')"><a
+						ng-click="login('facebook')" href="#">Facebook</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav">
@@ -83,8 +84,9 @@
 	<footer class="container text-center">
 		<a href="#/impressum">Impressum</a> &bull; <a href="#/pixiExperiments">pixi
 			Experiments</a> &bull; <a href="#/firebaseExperiments">firebase
-			Experiments</a> &bull; Showing of 'interpolate' filter: {{ 'Current
-		version is v%VERSION%.' | interpolate }} &bull; Asset Generator v<span
+			Experiments</a> &bull; <a href="#/gDriveExperiments">gDrive Experiments</a>
+		&bull; Showing of 'interpolate' filter: {{ 'Current version is
+		v%VERSION%.' | interpolate }} &bull; Asset Generator v<span
 			app-version></span>
 	</footer>
 

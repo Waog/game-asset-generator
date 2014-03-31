@@ -57,6 +57,10 @@ angular.module(
 				templateUrl : 'partials/firebaseExperiments.html',
 				controller : 'firebaseExperimentsCtrl'
 			});
+			$routeProvider.when('/gDriveExperiments', {
+				templateUrl : 'partials/gDriveExperiments.html',
+				controller : 'gDriveExperimentsCtrl'
+			});
 			$routeProvider.otherwise({
 				redirectTo : '/home'
 			});
