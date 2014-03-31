@@ -18,6 +18,9 @@ controllerDefinitions.factory('authService', [
 	                "https://game-asset-generator.firebaseio.com/");
 
 	        var anAuthServiceInstance = {
+
+	            firebaseRef : ref,
+
 	            loginWith : function(provider) {
 		            console.log('logging in with: ' + provider);
 		            // use the defined object to authenticate via facebook
@@ -69,13 +72,12 @@ controllerDefinitions.controller('firebaseExperimentsCtrl', [
         '$scope',
         '$firebase',
         'gAnalyticsTrackService',
+        'authService',
         function firebaseExperimentsCtrl($scope, $firebase,
-                gAnalyticsTrackService) {
+                gAnalyticsTrackService, authService) {
 	        gAnalyticsTrackService();
 
-	        var ref = new Firebase(
-	                "https://game-asset-generator.firebaseio.com/");
-	        $scope.messages = $firebase(ref);
+	        $scope.messages = $firebase(authService.firebaseRef);
 
 	        $scope.addMessage = function(e) {
 		        if (e.keyCode != 13)
@@ -86,27 +88,6 @@ controllerDefinitions.controller('firebaseExperimentsCtrl', [
 		        });
 		        $scope.msg = "";
 	        };
-
-	        // define an object to handle authentication at firebase
-	        var auth = new FirebaseSimpleLogin(ref, function(error, user) {
-		        if (error) {
-			        // an error occurred while
-			        // attempting login
-			        console.log(error);
-		        } else if (user) {
-			        // user authenticated with Firebase
-			        console.log('User ID: ' + user.id + ', Provider: '
-			                + user.provider);
-			        $scope.$parent.userAuth = user;
-			        $scope.$parent.naviLoginText = 'Welcome '
-			                + user.displayName + ' logged in with: ';
-		        } else {
-			        // user is logged out
-		        }
-	        });
-
-	        // use the defined object to authenticate via facebook
-	        auth.login('facebook');
         } ]);
 
 controllerDefinitions.controller('navigationCtrl', [
