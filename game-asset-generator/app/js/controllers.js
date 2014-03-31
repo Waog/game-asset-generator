@@ -2,25 +2,25 @@
 
 var controllerDefinitions = angular.module('myApp.controllers', []);
 
-var gAnalyticsService = controllerDefinitions.factory('gAnalyticsTrack',
-        [ function() {
+controllerDefinitions.factory('gAnalyticsTrack',
+        [ function gAnalyticsTrack() {
 	        return function() {
 		        // ga('send', 'pageview');
 		        console.log('tracked something...');
 	        }
         } ]);
 
-var nullController = controllerDefinitions.controller('nullCtrl', [
-        'gAnalyticsTrack', function(gAnalyticsTrack) {
+controllerDefinitions.controller('nullCtrl', [
+        'gAnalyticsTrack', function nullCtrl(gAnalyticsTrack) {
 	        gAnalyticsTrack();
         } ]);
 
-var firebaseExperimentsController = controllerDefinitions.controller(
+controllerDefinitions.controller(
         'firebaseExperimentsCtrl', [
                 '$scope',
                 '$firebase',
                 'gAnalyticsTrack',
-                function($scope, $firebase, gAnalyticsTrack) {
+                function firebaseExperimentsCtrl($scope, $firebase, gAnalyticsTrack) {
 	                gAnalyticsTrack();
 
 	                var ref = new Firebase(
@@ -60,10 +60,10 @@ var firebaseExperimentsController = controllerDefinitions.controller(
 	                auth.login('facebook');
                 } ]);
 
-var navigationController = controllerDefinitions.controller('navigationCtrl', [
+controllerDefinitions.controller('navigationCtrl', [
         '$scope',
         '$location',
-        function($scope, $location) {
+        function navigationCtrl($scope, $location) {
 
 	        /**
 			 * returns the 'active' css class if the given page matches the
@@ -96,8 +96,8 @@ var navigationController = controllerDefinitions.controller('navigationCtrl', [
 	        };
         } ]);
 
-var pixi01Controller = controllerDefinitions.controller('pixi01Ctrl', [
-        'gAnalyticsTrack', function(gAnalyticsTrack) {
+controllerDefinitions.controller('pixi01Ctrl', [
+        'gAnalyticsTrack', function pixi01Ctrl(gAnalyticsTrack) {
 	        gAnalyticsTrack();
 
 	        // create an new instance of a pixi stage
@@ -139,8 +139,8 @@ var pixi01Controller = controllerDefinitions.controller('pixi01Ctrl', [
 	        }
         } ]);
 
-var pixi02Controller = controllerDefinitions.controller('pixi02Ctrl', [
-        'gAnalyticsTrack', function(gAnalyticsTrack) {
+controllerDefinitions.controller('pixi02Ctrl', [
+        'gAnalyticsTrack', function pixi02Ctrl(gAnalyticsTrack) {
 	        gAnalyticsTrack();
 	        // create an array of assets to load
 	        var assetsToLoader = [ "img/pixiExperiments/ownSpriteSheet.json" ];
