@@ -10,10 +10,18 @@
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>com.assetgenerator.server.GreetingServiceImpl</servlet-class>
   </servlet>
-  
-  <servlet-mapping>
+   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
     <url-pattern>/game_asset_generator_server/greet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>uploadResourceServlet</servlet-name>
+    <servlet-class>com.assetgenerator.server.UploadResourceServlet</servlet-class>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>uploadResourceServlet</servlet-name>
+    <url-pattern>/game_asset_generator_server/uploadResource</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
