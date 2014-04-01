@@ -4,7 +4,7 @@
 angular.module(
 		'myApp',
 		[ 'ngRoute', 'myApp.filters', 'myApp.services', 'myApp.directives',
-				'myApp.controllers', "firebase" ]).config(
+				'myApp.controllers', 'firebase', 'angularFileUpload']).config(
 		[ '$routeProvider', function($routeProvider) {
 			$routeProvider.when('/home', {
 				templateUrl : 'partials/home.html',
