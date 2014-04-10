@@ -1,32 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         version="2.5"
-         xmlns="http://java.sun.com/xml/ns/javaee">
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
 
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.assetgenerator.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-   <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/game_asset_generator_server/greet</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>uploadResourceServlet</servlet-name>
-    <servlet-class>com.assetgenerator.server.UploadResourceServlet</servlet-class>
-  </servlet>
-   <servlet-mapping>
-    <servlet-name>uploadResourceServlet</servlet-name>
-    <url-pattern>/game_asset_generator_server/uploadResource</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Game_asset_generator_server.html</welcome-file>
-  </welcome-file-list>
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>greetServlet</servlet-name>
+		<servlet-class>com.assetgenerator.server.GreetingServiceImpl
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>greetServlet</servlet-name>
+		<url-pattern>/game_asset_generator_server/greet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>uploadResourceServlet</servlet-name>
+		<servlet-class>com.assetgenerator.server.servlets.UploadResourceServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>uploadResourceServlet</servlet-name>
+		<url-pattern>/game_asset_generator_server/uploadResource</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>oneTimeAuthorizationCodeServlet</servlet-name>
+		<servlet-class>com.assetgenerator.server.driveUpload.hostAuthorization.OneTimeAuthorizationUrlServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>oneTimeAuthorizationCodeServlet</servlet-name>
+		<url-pattern>/game_asset_generator_server/oneTimeAuthCode
+		</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>oneTimeCredentialsServlet</servlet-name>
+		<servlet-class>com.assetgenerator.server.driveUpload.hostAuthorization.OneTimeCredentialsServlet
+		</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>oneTimeCredentialsServlet</servlet-name>
+		<url-pattern>/game_asset_generator_server/oneTimeCredentials
+		</url-pattern>
+	</servlet-mapping>
+
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>Game_asset_generator_server.html</welcome-file>
+	</welcome-file-list>
 
 </web-app>
