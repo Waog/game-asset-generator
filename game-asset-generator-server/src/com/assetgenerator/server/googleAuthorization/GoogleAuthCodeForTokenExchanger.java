@@ -26,7 +26,10 @@ public class GoogleAuthCodeForTokenExchanger {
 	/** TODO: replace hashmap with real database access */
 	private static Map<String, Credential> credentialsDatabaseStub = new HashMap<String, Credential>();
 
+	/** TODO: find out what this redirect uri is used for, since there is no second recognizable redirect. */
 	private static final String REDIRECT_URI = "http://localhost:8888/game_asset_generator_server/oneTimeCredentials";
+	
+	/** TODO: find out why the scopes have to be specified a second time. they where already specified when requesting the authCode. */
 	private static final List<String> SCOPES = Arrays.asList(DriveScopes.DRIVE,
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile");

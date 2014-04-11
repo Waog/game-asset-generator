@@ -179,31 +179,6 @@ public class UploadResourceServlet extends HttpServlet {
 
 	}
 
-	private static void staticUploadToDrive() throws IOException {
-
-		// insert a folder
-		File folder = new File();
-		folder.setTitle("My folder");
-		folder.setDescription("A test folder");
-		folder.setMimeType("application/vnd.google-apps.folder");
-
-		DriveUpload driveUpload = new DriveUploadImpl();
-		driveUpload.upload(folder, null);
-
-		// Insert a file
-		File file = new File();
-		file.setTitle("My document");
-		file.setDescription("A test document");
-		file.setMimeType("text/plain");
-		file.setParents(Arrays.asList(new ParentReference()
-				.setId("0B9AMflGDD5rBX01fQnhiMDA3Ylk")));
-
-		java.io.File fileContent = new java.io.File("document.txt");
-		FileContent mediaContent = new FileContent("text/plain", fileContent);
-
-		driveUpload.upload(file, mediaContent);
-	}
-
 	private static void dynamicUploadToDrive(FileItemStream item) {
 		
 		DriveUpload driveUpload = new DriveUploadImpl();
