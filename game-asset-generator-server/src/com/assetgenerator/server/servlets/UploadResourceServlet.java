@@ -75,8 +75,6 @@ public class UploadResourceServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		staticUploadToDrive();
-
 		res.setHeader("Access-Control-Allow-Origin", "*");
 		res.setHeader("Access-Control-Allow-Methods",
 				"GET,POST,PUT,DELETE,OPTIONS");
@@ -95,19 +93,24 @@ public class UploadResourceServlet extends HttpServlet {
 				while (iterator.hasNext()) {
 					sb.append("{");
 					FileItemStream item = iterator.next();
-					sb.append("\"fieldName\":\"").append(item.getFieldName())
-							.append("\",");
-					if (item.getName() != null) {
-						sb.append("\"name\":\"").append(item.getName())
-								.append("\",");
-					}
-					if (item.getName() != null) {
-						sb.append("\"size\":\"")
-								.append(size(item.openStream())).append("\"");
-					} else {
-						sb.append("\"value\":\"")
-								.append(read(item.openStream())).append("\"");
-					}
+
+					// own code to convert into a file object
+					System.out.println("uploading: " + item);
+					dynamicUploadToDrive(item);
+
+//					sb.append("\"fieldName\":\"").append(item.getFieldName())
+//							.append("\",");
+//					if (item.getName() != null) {
+//						sb.append("\"name\":\"").append(item.getName())
+//								.append("\",");
+//					}
+//					if (item.getName() != null) {
+//						sb.append("\"size\":\"")
+//								.append(size(item.openStream())).append("\"");
+//					} else {
+//						sb.append("\"value\":\"")
+//								.append(read(item.openStream())).append("\"");
+//					}
 					sb.append("}");
 					if (iterator.hasNext()) {
 						sb.append(",");
@@ -176,8 +179,8 @@ public class UploadResourceServlet extends HttpServlet {
 
 	}
 
-	public static void staticUploadToDrive() throws IOException {
-		
+	private static void staticUploadToDrive() throws IOException {
+
 		// insert a folder
 		File folder = new File();
 		folder.setTitle("My folder");
@@ -192,12 +195,18 @@ public class UploadResourceServlet extends HttpServlet {
 		file.setTitle("My document");
 		file.setDescription("A test document");
 		file.setMimeType("text/plain");
-		file.setParents(
-		          Arrays.asList(new ParentReference().setId("0B9AMflGDD5rBX01fQnhiMDA3Ylk")));
+		file.setParents(Arrays.asList(new ParentReference()
+				.setId("0B9AMflGDD5rBX01fQnhiMDA3Ylk")));
 
 		java.io.File fileContent = new java.io.File("document.txt");
 		FileContent mediaContent = new FileContent("text/plain", fileContent);
-		
+
 		driveUpload.upload(file, mediaContent);
+	}
+
+	private static void dynamicUploadToDrive(FileItemStream item) {
+		
+		DriveUpload driveUpload = new DriveUploadImpl();
+		driveUpload.upload(item);
 	}
 }

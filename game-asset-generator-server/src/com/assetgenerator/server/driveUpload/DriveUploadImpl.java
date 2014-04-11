@@ -1,21 +1,27 @@
 package com.assetgenerator.server.driveUpload;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Random;
+
+import org.apache.commons.fileupload.FileItemStream;
 
 import com.assetgenerator.server.driveUpload.hostAuthorization.HostCredentials;
 import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.FileContent;
+import com.google.api.client.http.AbstractInputStreamContent;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
+import com.google.api.client.util.IOUtils;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
 public class DriveUploadImpl implements DriveUpload {
 
 	@Override
-	public URL upload(File file, FileContent mediaContent) {
+	public URL upload(File file, AbstractInputStreamContent mediaContent) {
 
 		HostCredentials hostCredentials = new HostCredentials();
 		Credential credential = hostCredentials.get();
@@ -38,13 +44,37 @@ public class DriveUploadImpl implements DriveUpload {
 		}
 		System.out.println("File ID: " + file2.getId());
 
-		String webViewLink = file2.getWebViewLink();
 		URL url = null;
+		return url;
+	}
+	
+	@Override
+	public URL upload(FileItemStream item) {
+		File file = new File();
+		file.setTitle("["+ item.getContentType() + "] " + item.getName() + " (" + item.getFieldName() + "_"
+				+ Math.abs(new Random().nextLong()) + ")");
+		file.setDescription("Description of " + item.getName());
+		file.setMimeType(item.getContentType());
+
+		AbstractInputStreamContent mediaContent = toAbstractInputStreamContent(item);
+		return upload(file, mediaContent);
+	}
+	
+	private static AbstractInputStreamContent toAbstractInputStreamContent(
+			FileItemStream item) {
+		AbstractInputStreamContent result = null;
 		try {
-			url = new URL(webViewLink);
-		} catch (MalformedURLException e) {
+			InputStream inputStream = item.openStream();
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			IOUtils.copy(inputStream, byteArrayOutputStream);
+			byte[] byteArray = byteArrayOutputStream.toByteArray();
+			result = new ByteArrayContent(item.getContentType(), byteArray);
+			result.setType(item.getContentType());
+			inputStream.close();
+			byteArrayOutputStream.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return url;
+		return result;
 	}
 }
