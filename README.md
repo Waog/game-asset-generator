@@ -3,13 +3,14 @@ game-asset-generator
 [Link](http://goo.gl/kuIKZR) to the created website.
 
 
-#summary This page contains references related to this project.
+# summary
+Asset Generator for Game Developers
 
-= Introduction =
+# Introduction
 
-This documentation regarding the development of this project is linked below.
+The documentation regarding the development of this project is linked below.
 
 
-= Details =
+# Details
 
-Overview of the Distributed Collaboration between the participating clients and servers. [https://www.draw.io/?#G0BzM6N9naVgG_N21lMTMxSkRDT3c [link]]
+Overview of the Distributed Collaboration between the participating clients and servers. [Link](https://www.draw.io/?#G0BzM6N9naVgG_N21lMTMxSkRDT3c)
