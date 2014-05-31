@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Enumeration;
 
@@ -96,21 +97,26 @@ public class UploadResourceServlet extends HttpServlet {
 
 					// own code to convert into a file object
 					System.out.println("uploading: " + item);
-					dynamicUploadToDrive(item);
+					if (item.getContentType() != null && item.getName() != null) {
+						dynamicUploadToDrive(item);
+					} else {
+						// TODO: make use of meta-data here (HTTP POST
+						// data-object).
+					}
 
-//					sb.append("\"fieldName\":\"").append(item.getFieldName())
-//							.append("\",");
-//					if (item.getName() != null) {
-//						sb.append("\"name\":\"").append(item.getName())
-//								.append("\",");
-//					}
-//					if (item.getName() != null) {
-//						sb.append("\"size\":\"")
-//								.append(size(item.openStream())).append("\"");
-//					} else {
-//						sb.append("\"value\":\"")
-//								.append(read(item.openStream())).append("\"");
-//					}
+					// sb.append("\"fieldName\":\"").append(item.getFieldName())
+					// .append("\",");
+					// if (item.getName() != null) {
+					// sb.append("\"name\":\"").append(item.getName())
+					// .append("\",");
+					// }
+					// if (item.getName() != null) {
+					// sb.append("\"size\":\"")
+					// .append(size(item.openStream())).append("\"");
+					// } else {
+					// sb.append("\"value\":\"")
+					// .append(read(item.openStream())).append("\"");
+					// }
 					sb.append("}");
 					if (iterator.hasNext()) {
 						sb.append(",");
@@ -180,8 +186,10 @@ public class UploadResourceServlet extends HttpServlet {
 	}
 
 	private static void dynamicUploadToDrive(FileItemStream item) {
-		
+
 		DriveUpload driveUpload = new DriveUploadImpl();
-		driveUpload.upload(item);
+		URL itemUrl = driveUpload.upload(item);
+		// TODO: register this URL at firebase and make it visible at client
+		// side. Or use the drive API, to make it visible for the user.
 	}
 }

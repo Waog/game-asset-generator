@@ -4,25 +4,23 @@
 		<h1>Google Drive Experiments.</h1>
 		<p class="bg-warning text-warning">
 			<span class="glyphicon glyphicon-cog"></span> Under Construction.
-			Experiments of Developers with Google Drive. This websites <a
-				class="btn btn-default"
+			Experiments of Developers with Google Drive. This websites
+			<a class="btn btn-default"
 				href="https://drive.google.com/folderview?id=0BzM6N9naVgG_RWcya1hERTkwUUU&usp=drive_web"
 				target="_blank">gDrive</a>
 		</p>
 	</div>
 </div>
 <div class="container">
-	Send some HTTP request to Google App Engine: <a class="btn btn-default"
-		ng-click="sendHttpToGoogleAppEngine()">click</a><br /> Google
-	Response: <br /> {{googleServerResponseData}}
+	Send some HTTP request to Google App Engine:
+	<a class="btn btn-default" ng-click="sendHttpToGoogleAppEngine()">click</a>
+	<br /> Google Response: <br /> {{googleServerResponseData}}
 </div>
-
 <h1>angular-file-upload example:</h1>
-
 <div>
-	<input type="text" ng-model="myModelObj"> <input type="file"
-		ng-file-select="onFileSelect($files)"> <input type="file"
-		ng-file-select="onFileSelect($files)" multiple>
+	<input type="text" ng-model="myModelObj">
+	<input type="file" ng-file-select="onFileSelect($files)">
+	<input type="file" ng-file-select="onFileSelect($files)" multiple>
 	<div ng-file-drop="onFileSelect($files)"
 		ng-file-drag-over-class="drop-box" class="drop-box"
 		ng-show="dropSupported">drop files here</div>

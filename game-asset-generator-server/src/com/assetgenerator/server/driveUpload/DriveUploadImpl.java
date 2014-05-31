@@ -3,11 +3,13 @@ package com.assetgenerator.server.driveUpload;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 
 import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.io.FilenameUtils;
 
 import com.assetgenerator.server.driveUpload.hostAuthorization.HostCredentials;
 import com.google.api.client.auth.oauth2.Credential;
@@ -32,7 +34,10 @@ public class DriveUploadImpl implements DriveUpload {
 		// Create a new authorized API client
 		HttpTransport transport = credential.getTransport();
 		JsonFactory jsonFactory = credential.getJsonFactory();
-		Drive service = new Drive.Builder(transport, jsonFactory, credential)
+		Drive.Builder builder = new Drive.Builder(transport, jsonFactory,
+				credential);
+		builder.setApplicationName("anyName");
+		Drive service = builder
 				.build();
 
 		// attach a parent folder to the given file
@@ -52,16 +57,27 @@ public class DriveUploadImpl implements DriveUpload {
 		}
 		System.out.println("File ID: " + file2.getId());
 
+		String webContentLink = file2.getWebContentLink();
+		
 		URL url = null;
+		try {
+			url = new URL(webContentLink);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return url;
 	}
 
 	@Override
 	public URL upload(FileItemStream item) {
 		File file = new File();
+		
+		String fileExtension = FilenameUtils.getExtension(item.getName());
+		
 		file.setTitle("[" + item.getContentType() + "] " + item.getName()
 				+ " (" + item.getFieldName() + "_"
-				+ Math.abs(new Random().nextLong()) + ")");
+				+ Math.abs(new Random().nextLong()) + ")." + fileExtension);
 		file.setDescription("Description of " + item.getName());
 		file.setMimeType(item.getContentType());
 
