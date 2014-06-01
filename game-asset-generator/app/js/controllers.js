@@ -95,8 +95,10 @@ controllerDefinitions
             '$http',
             '$scope',
             '$upload',
+            'appEngineUrl',
+            'fileUploadRoute',
             function gDriveExperimentsCtrl(gAnalyticsTrackService, $http,
-                $scope, $upload) {
+                $scope, $upload, appEngineUrl, fileUploadRoute) {
 	            gAnalyticsTrackService();
 	            console.log('gDriveExperimentsCtrl entered');
 
@@ -105,7 +107,7 @@ controllerDefinitions
 	            $scope.sendHttpToGoogleAppEngine = function() {
 		            var googleHttpService = $http({
 		              method : 'GET',
-		              url : 'http://1-dot-expanded-system-536.appspot.com/game_asset_generator_server/uploadResource'
+		              url : ('' + appEngineUrl + fileUploadRoute)
 		            });
 		            googleHttpService.success(function(data, status, headers,
 		                config) {
@@ -140,25 +142,30 @@ controllerDefinitions
 
 	            $scope.onFileSelect = function($files) {
 		            // $files: an array of files selected, each file has name, size,
-								// and type.
+		            // and type.
 		            for (var i = 0; i < $files.length; i++) {
 			            var file = $files[i];
 			            $scope.upload = $upload.upload({
-			              url : 'http://1-dot-expanded-system-536.appspot.com/game_asset_generator_server/uploadResource', // upload.php script, node.js
-																								// route, or servlet url
-			              method: 'POST',
+			              url : ('' + appEngineUrl + fileUploadRoute), // upload.php
+			              // script,
+			              // node.js
+			              // route, or servlet url
+			              method : 'POST',
 			              // headers: {'header-key': 'header-value'},
 			              // withCredentials: true,
-			              data : {
+			              data : { // some custom data: is interpreted as a seperate
+															// file.
 				              myObj : $scope.myModelObj
 			              },
-			              file : file, // or list of files: $files for html5 only
+			              file : file, // or list of files: $files for html5
+			            // only
 			            /*
 									 * set the file formData name ('Content-Desposition'). Default
 									 * is 'file'
 									 */
-			            // fileFormDataName: myFile, //or a list of names for multiple
-									// files (html5).
+			            // fileFormDataName: myFile, //or a list of names for
+			            // multiple
+			            // files (html5).
 			            /*
 									 * customize how data is added to formData. See
 									 * #40#issuecomment-28612000 for sample code
@@ -175,7 +182,7 @@ controllerDefinitions
 			            // .error(...)
 			            // .then(success, error, progress);
 			            // .xhr(function(xhr){xhr.upload.addEventListener(...)})//
-									// access and attach any event listener to XMLHttpRequest.
+			            // access and attach any event listener to XMLHttpRequest.
 		            }
 		            /*
 								 * alternative way of uploading, send the file binary with the
@@ -185,7 +192,7 @@ controllerDefinitions
 								 * post/put request with large data
 								 */
 		            // $scope.upload = $upload.http({...}) see
-								// 88#issuecomment-31366487 for sample code.
+		            // 88#issuecomment-31366487 for sample code.
 	            };
 
             } ]);

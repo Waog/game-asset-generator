@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <package id="1" language="java" name="com.assetgenerator.server" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="179" x="235" y="37"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="com.assetgenerator.client" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/client" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="173" x="41" y="127"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="com.assetgenerator.shared" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/shared" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="50" width="182" x="232" y="217"/>    
+    <display autosize="true" stereotype="true" accessors="true"/>  
+  </package>  
+  <dependency id="4">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="5">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="6">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

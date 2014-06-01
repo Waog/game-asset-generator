@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.6" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <package id="1" language="java" name="com.assetgenerator.server.googleAuthorization" 
+    project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server/googleAuthorization" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="34" width="294" x="414" y="146"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="com.assetgenerator.server.driveUpload" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server/driveUpload" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="248" x="748" y="146"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="com.assetgenerator.server.credentialStore" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server/credentialStore" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="34" width="269" x="439" y="37"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="com.assetgenerator.server.servlets" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server/servlets" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="227" x="748" y="37"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <class id="5" language="java" name="com.assetgenerator.server.GreetingServiceImpl" 
+    project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server/GreetingServiceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="69" width="139" x="41" y="37"/>    
+    <display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="false" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <package id="6" language="java" name="com.assetgenerator.server" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/server" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="179" x="220" y="37"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="7" language="java" name="com.assetgenerator.client" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/client" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="173" x="41" y="146"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="8" language="java" name="com.assetgenerator.shared" project="game-asset-generator-server" 
+    file="/game-asset-generator-server/src/com/assetgenerator/shared" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="34" width="182" x="235" y="220"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="13">    
+    <bendpoint x="244" y="146"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="false" package="false" initial-value="false" signature="false" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="false" protected="true" private="false" static="true"/>    
+    <operations public="true" package="true" protected="true" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

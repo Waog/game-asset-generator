@@ -1,3 +1,2 @@
 # Module game_asset_generator_server
 # RPC service class, partial path of RPC policy file
-com.assetgenerator.client.GreetingService, C46DCC0FFC2977846D8E53A74393FC56.gwt.rpc
