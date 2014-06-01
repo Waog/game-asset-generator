@@ -45,6 +45,7 @@ public class DriveUploadImpl implements DriveUpload {
 		file.setParents(Arrays.asList(new ParentReference()
 				.setId(publicFolderId)));
 
+		// potentially use resumable uploads instead of "inserts" here.
 		File file2 = null;
 		try {
 			if (mediaContent == null) {
